@@ -46,11 +46,17 @@ describe('Countries GraphQL API', () => {
   });
 
   it('shows which countries talks in Spanish', async () => {
-    const result = await sendQuery('{language(code: "") {countries {capital code name}}}');
-    expect(result.body).to.not.have.property('errors');
-    const countries = result.body.data.language.countries;
-    const names = countries.map((melapela) => melapela.name);
-    ///expect(names).to.include.members(['Colombia', 'Spain', 'Mexico']);
-    console.log(names);
+    const countriesByLang = {};
+    const code_lang = ['es', 'de', 'en'];
+    for (const code of code_lang) {
+      const result = await sendQuery(`{language(code:"${code}") {countries {capital code name}}}`);
+      expect(result.body).to.not.have.property('errors');
+      countriesByLang[code] = result.body.data.language.countries.map((country) => country.name);
+      expect(countriesByLang[code]).to.be.an('array').that.is.not.empty;
+    }
+
+    expect(countriesByLang.es).to.include.members(['Colombia', 'Spain', 'Mexico']);
+    expect(countriesByLang.de).to.include.members(['Liechtenstein', 'Germany', 'Belgium']);
+    console.log(countriesByLang);
   })
 });
