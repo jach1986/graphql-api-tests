@@ -57,7 +57,7 @@ describe('Countries GraphQL API', () => {
 
     expect(countriesByLang.es).to.include.members(['Colombia', 'Spain', 'Mexico']);
     expect(countriesByLang.de).to.include.members(['Liechtenstein', 'Germany', 'Belgium', 'Luxembourg']);
-    expect(countriesByLang.en).to.include.members(['Uganda', 'Vanuatu', 'Samoa', 'Australia']);
+    expect(countriesByLang.en).to.include.members(['Uganda', 'Vanuatu', 'Samoa', 'Australia', 'Colombia']);
     console.log(countriesByLang);
   })
 });
